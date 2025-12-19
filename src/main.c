@@ -9,7 +9,7 @@
 int main(int argc, char *argv[]) {
     // Default test image
     const char *input_file = "data/boxes_1.ppm";
-    const char *output_file = "output.ppm";
+    const char *output_file = "dist/output.ppm";
 
     // TODO: Parse command line arguments for:
     //   - Input image path

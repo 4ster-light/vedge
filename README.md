@@ -1,10 +1,10 @@
-# vedge - Vision & Edge Detection Learning Project
+# vedge
 
 A hands-on C project for learning image processing fundamentals through
 implementation. Start with edge detection, then progress to shape detection, and
 eventually live video object tracking.
 
-## Learning Path
+## Implementation Path
 
 1. **Phase 1**: Edge Detection (Sobel operator)
 2. **Phase 2**: Shape Detection (contour analysis)
@@ -73,4 +73,4 @@ kernels to detect edges in the horizontal and vertical directions.
 
 ## License
 
-This is a computer vision project for educational purposes.
+MIT

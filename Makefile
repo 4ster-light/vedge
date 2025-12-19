@@ -7,7 +7,7 @@ BIN_DIR  := dist
 
 SRCS     := $(SRC_DIR)/main.c $(SRC_DIR)/image.c $(SRC_DIR)/filters.c
 OBJS     := $(patsubst $(SRC_DIR)/%.c, $(BIN_DIR)/%.o, $(SRCS))
-TARGET   := $(BIN_DIR)/edge_detector
+TARGET   := $(BIN_DIR)/vedge
 
 .PHONY: all clean run help
 
@@ -29,8 +29,7 @@ all: $(TARGET)
 
 clean:
 	@rm -rf $(BIN_DIR)
-	@rm -f output.ppm
-	@echo "✓ Cleaned build artifacts"
+	@echo "✓ Cleaned build artifacts and output"
 
 run: all
 	@echo "✓ Running edge detector..."

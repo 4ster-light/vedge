@@ -1,32 +1,44 @@
+#include <stdio.h>
+#include <stdlib.h>
+
 #include "image.h"
 #include "filters.h"
-#include <stdio.h>
-#include <string.h>
+#include "cli.h"
 
-// ===== CURRENT PHASE =====
-// Phase 1: Edge Detection - Implement the Sobel operator in filters.c
 
 int main(int argc, char *argv[]) {
-    // Default test image
-    const char *input_file = "data/boxes_1.ppm";
-    const char *output_file = "dist/output.ppm";
-
-    // TODO: Parse command line arguments for:
-    //   - Input image path
-    //   - Output file path
-    //   - Algorithm selection (edge detection, shapes, etc.)
-    //   - Algorithm parameters (threshold, sensitivity, etc.)
-
-    printf("Loading image: %s\n", input_file);
-    Image img = load_ppm(input_file);
+    CLIOptions options = parse_cli_arguments(argc, argv);
+    
+    Image img = load_ppm(options.input_file);
+    printf("Processing: %s\n", options.input_file);
     printf("Image dimensions: %dx%d\n", img.width, img.height);
 
-    // PHASE 1: Edge Detection
-    printf("Detecting edges (Sobel)...\n");
-    Image edges = sobel_edge_detection(img);
+    // === PHASE 1: Edge Detection ===
+    printf("Detecting edges...\n");
+    
+    printf("Threshold: %.2f, Sensitivity: %.2f\n", options.threshold, options.sensitivity);
+    
+    Image edges;
+    switch (options.filter_type)
+    {
+    case FILTER_SOBEL:
+        printf("Using Sobel edge detection.\n");
+        edges = sobel_edge_detection(img, options.threshold, options.sensitivity);
+        break;
+    case FILTER_CANNY:
+        printf("Using Canny edge detection.\n");
+        edges = canny_edge_detection(img, options.threshold, options.sensitivity);
+        break;
+    case FILTER_LAPLACIAN:
+        printf("Using Laplacian edge detection.\n");
+        edges = laplacian_edge_detection(img, options.threshold, options.sensitivity);
+        break;
+    default:
+        break;
+    }
 
-    printf("Saving result: %s\n", output_file);
-    save_ppm(output_file, edges);
+    printf("Saving result: %s\n", options.output_file);
+    save_ppm(options.output_file, edges);
 
     free_image(img);
     free_image(edges);
@@ -41,5 +53,5 @@ int main(int argc, char *argv[]) {
 
     // PHASE 4: Object Tracking
 
-    return 0;
+    return EXIT_SUCCESS;
 }

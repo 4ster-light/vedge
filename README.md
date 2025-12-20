@@ -15,7 +15,9 @@ eventually live video object tracking.
 
 ```txt
 src/
-├── main.c       - Entry point (TODO: add options for different algorithms)
+├── main.c       - Entry point
+├── cli.c        - Command-line argument parsing
+├── cli.h        - CLI option structures
 ├── image.c      - Image I/O (COMPLETE)
 ├── image.h      - Image structures (COMPLETE)
 ├── filters.c    - Algorithm implementations (TODO: Sobel, shapes, etc.)
@@ -31,10 +33,37 @@ make run   # Build and run
 make help  # See all commands
 ```
 
-Output goes to `dist/edge_detector`.
+## Usage
 
-This will process the input image (`data/boxes_1.ppm` by default) and save the
-edge detection result to `output.ppm`.
+```sh
+./dist/edge_detector [OPTIONS]
+```
+
+### Options
+
+- `-i, --input FILE` Input image file (default: data/boxes_1.ppm)
+- `-o, --output FILE` Output image file (default: dist/output.ppm)
+- `-f, --filter TYPE` Edge detection filter:
+  - `0` = Sobel (default)
+  - `1` = Canny
+  - `2` = Laplacian
+- `-t, --threshold VAL` Edge detection threshold 0.0-1.0 (default: 0.1)
+- `-s, --sensitivity VAL` Edge detection sensitivity 0.0-1.0 (default: 0.5)
+- `-h, --help` Show help message
+
+### Examples
+
+```sh
+# Show help
+./dist/vedge
+./dist/vedge --help
+
+# Use Sobel with default parameters
+./dist/vedge -i data/house_1.ppm -o dist/house_edges.ppm
+
+# Use Canny edge detection with custom threshold
+./dist/vedge -f 1 -i data/tree_1.ppm -t 0.2 -s 0.7
+```
 
 ## Test Images
 

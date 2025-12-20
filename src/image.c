@@ -1,8 +1,11 @@
-#include "image.h"
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "image.h"
+
 Image load_ppm(const char *filename) {
+    printf("Loading PPM image from %s\n", filename);
+
     FILE *fp = fopen(filename, "rb");
     if (!fp) {
         perror("Error opening file");

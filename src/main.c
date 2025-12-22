@@ -1,57 +1,56 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 #include "image.h"
 #include "filters.h"
 #include "cli.h"
 
+int main(int argc, char *argv[])
+{
+	CLIOptions options = parse_cli_arguments(argc, argv);
 
-int main(int argc, char *argv[]) {
-    CLIOptions options = parse_cli_arguments(argc, argv);
-    
-    Image img = load_ppm(options.input_file);
-    printf("Processing: %s\n", options.input_file);
-    printf("Image dimensions: %dx%d\n", img.width, img.height);
+	Image img = load_ppm(options.input_file);
+	printf("Processing: %s\n", options.input_file);
+	printf("Image dimensions: %dx%d\n", img.width, img.height);
 
-    // === PHASE 1: Edge Detection ===
-    printf("Detecting edges...\n");
-    
-    printf("Threshold: %.2f, Sensitivity: %.2f\n", options.threshold, options.sensitivity);
-    
-    Image edges;
-    switch (options.filter_type)
-    {
-    case FILTER_SOBEL:
-        printf("Using Sobel edge detection.\n");
-        edges = sobel_edge_detection(img, options.threshold, options.sensitivity);
-        break;
-    case FILTER_CANNY:
-        printf("Using Canny edge detection.\n");
-        edges = canny_edge_detection(img, options.threshold, options.sensitivity);
-        break;
-    case FILTER_LAPLACIAN:
-        printf("Using Laplacian edge detection.\n");
-        edges = laplacian_edge_detection(img, options.threshold, options.sensitivity);
-        break;
-    default:
-        break;
-    }
+	// === PHASE 1: Edge Detection ===
+	printf("Detecting edges...\n");
 
-    printf("Saving result: %s\n", options.output_file);
-    save_ppm(options.output_file, edges);
+	printf("Threshold: %.2f, Sensitivity: %.2f\n", options.threshold, options.sensitivity);
 
-    free_image(img);
-    free_image(edges);
+	Image edges;
+	switch (options.filter_type)
+	{
+	case FILTER_SOBEL:
+		printf("Using Sobel edge detection.\n");
+		edges = sobel_edge_detection(img, options.threshold, options.sensitivity);
+		break;
+	case FILTER_CANNY:
+		printf("Using Canny edge detection.\n");
+		edges = canny_edge_detection(img, options.threshold, options.sensitivity);
+		break;
+	case FILTER_LAPLACIAN:
+		printf("Using Laplacian edge detection.\n");
+		edges = laplacian_edge_detection(img, options.threshold, options.sensitivity);
+		break;
+	default:
+		break;
+	}
 
-    printf("Done!\n");
+	printf("Saving result: %s\n", options.output_file);
+	save_ppm(options.output_file, edges);
 
-    // TODO: Future phases
+	free_image(img);
+	free_image(edges);
 
-    // PHASE 2: Shape Detection
+	printf("Done!\n");
 
-    // PHASE 3: Video Processing
+	// TODO: Future phases
 
-    // PHASE 4: Object Tracking
+	// PHASE 2: Shape Detection
 
-    return EXIT_SUCCESS;
+	// PHASE 3: Video Processing
+
+	// PHASE 4: Object Tracking
+
+	return 0;
 }

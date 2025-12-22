@@ -1,4 +1,3 @@
-#include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 #include <math.h>
@@ -27,46 +26,52 @@
  *   threshold:  Minimum gradient magnitude to consider as edge
  *   sensitivity: How much to amplify edge magnitudes (0.0-1.0)
  */
-Image sobel_edge_detection(Image img, float threshold, float sensitivity) {
-    Image result = {img.width, img.height, malloc(img.width * img.height)};
-    if (!result.data) {
-        perror("Memory allocation failed");
-        exit(EXIT_FAILURE);
-    }
+Image sobel_edge_detection(Image img, float threshold, float sensitivity)
+{
+	Image result = {img.width, img.height, malloc(img.width * img.height)};
+	if (!result.data)
+	{
+		perror("Memory allocation failed");
+		exit(1);
+	}
 
-    // TODO: Implementation here
-    // Placeholder: copy input
-    memcpy(result.data, img.data, img.width * img.height);
+	// TODO: Implementation here
+	// Placeholder: copy input
+	memcpy(result.data, img.data, img.width * img.height);
 
-    return result;
+	return result;
 }
 
-Image canny_edge_detection(Image img, float threshold, float sensitivity) {
-    Image result = {img.width, img.height, malloc(img.width * img.height)};
-    if (!result.data) {
-        perror("Memory allocation failed");
-        exit(EXIT_FAILURE);
-    }
+Image canny_edge_detection(Image img, float threshold, float sensitivity)
+{
+	Image result = {img.width, img.height, malloc(img.width * img.height)};
+	if (!result.data)
+	{
+		perror("Memory allocation failed");
+		exit(1);
+	}
 
-    // TODO: Implementation here
-    // Placeholder: copy input
-    memcpy(result.data, img.data, img.width * img.height);
+	// TODO: Implementation here
+	// Placeholder: copy input
+	memcpy(result.data, img.data, img.width * img.height);
 
-    return result;;
+	return result;
 }
 
-Image laplacian_edge_detection(Image img, float threshold, float sensitivity) {
-    Image result = {img.width, img.height, malloc(img.width * img.height)};
-    if (!result.data) {
-        perror("Memory allocation failed");
-        exit(EXIT_FAILURE);
-    }
+Image laplacian_edge_detection(Image img, float threshold, float sensitivity)
+{
+	Image result = {img.width, img.height, malloc(img.width * img.height)};
+	if (!result.data)
+	{
+		perror("Memory allocation failed");
+		exit(1);
+	}
 
-    // TODO: Implementation here
-    // Placeholder: copy input
-    memcpy(result.data, img.data, img.width * img.height);
+	// TODO: Implementation here
+	// Placeholder: copy input
+	memcpy(result.data, img.data, img.width * img.height);
 
-    return result;
+	return result;
 }
 
 // === PHASE 2: Shape Detection ===

@@ -1,18 +1,20 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include "cli.h"
 
 void print_help(const char *program_name)
 {
 	printf("Usage: %s [OPTIONS]\n", program_name);
+	printf("\n");
 	printf("Options:\n");
 	printf("  -i, --input FILE       Input image file (default: data/boxes_1.ppm)\n");
 	printf("  -o, --output FILE      Output image file (default: dist/output.ppm)\n");
 	printf("  -f, --filter TYPE      Edge detection filter:\n");
-	printf("                          0 = Sobel (default)\n");
-	printf("                          1 = Canny\n");
-	printf("                          2 = Laplacian\n");
+	printf("                           0 = Sobel (default)\n");
+	printf("                           1 = Canny\n");
+	printf("                           2 = Laplacian\n");
 	printf("  -t, --threshold VAL    Edge detection threshold 0.0-1.0 (default: 0.1)\n");
 	printf("  -s, --sensitivity VAL  Edge detection sensitivity 0.0-1.0 (default: 0.5)\n");
 	printf("  -h, --help             Show this help message\n");
@@ -29,7 +31,7 @@ CLIOptions parse_cli_arguments(int argc, char *argv[])
 	if (argc == 1)
 	{
 		print_help(argv[0]);
-		exit(0);
+		exit(EXIT_SUCCESS);
 	}
 
 	CLIOptions options = {
@@ -48,7 +50,7 @@ CLIOptions parse_cli_arguments(int argc, char *argv[])
 			else
 			{
 				fprintf(stderr, "Error: -i/--input requires an argument\n");
-				exit(1);
+				exit(EXIT_FAILURE);
 			}
 		}
 		else if (strcmp(argv[i], "-o") == 0 || strcmp(argv[i], "--output") == 0)
@@ -58,7 +60,7 @@ CLIOptions parse_cli_arguments(int argc, char *argv[])
 			else
 			{
 				fprintf(stderr, "Error: -o/--output requires an argument\n");
-				exit(1);
+				exit(EXIT_FAILURE);
 			}
 		}
 		else if (strcmp(argv[i], "-f") == 0 || strcmp(argv[i], "--filter") == 0)
@@ -68,7 +70,7 @@ CLIOptions parse_cli_arguments(int argc, char *argv[])
 			else
 			{
 				fprintf(stderr, "Error: -f/--filter requires an argument\n");
-				exit(1);
+				exit(EXIT_FAILURE);
 			}
 		}
 		else if (strcmp(argv[i], "-t") == 0 || strcmp(argv[i], "--threshold") == 0)
@@ -78,7 +80,7 @@ CLIOptions parse_cli_arguments(int argc, char *argv[])
 			else
 			{
 				fprintf(stderr, "Error: -t/--threshold requires an argument\n");
-				exit(1);
+				exit(EXIT_FAILURE);
 			}
 		}
 		else if (strcmp(argv[i], "-s") == 0 || strcmp(argv[i], "--sensitivity") == 0)
@@ -88,19 +90,19 @@ CLIOptions parse_cli_arguments(int argc, char *argv[])
 			else
 			{
 				fprintf(stderr, "Error: -s/--sensitivity requires an argument\n");
-				exit(1);
+				exit(EXIT_FAILURE);
 			}
 		}
 		else if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0)
 		{
 			print_help(argv[0]);
-			exit(0);
+			exit(EXIT_SUCCESS);
 		}
 		else
 		{
 			fprintf(stderr, "Error: Unknown option '%s'\n", argv[i]);
 			print_help(argv[0]);
-			exit(1);
+			exit(EXIT_FAILURE);
 		}
 
 		// TODO: Add parsing for additional options

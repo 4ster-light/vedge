@@ -21,15 +21,12 @@ int main(int argc, char *argv[])
 	switch (options.filter_type)
 	{
 	case FILTER_SOBEL:
-		printf("Using Sobel edge detection.\n");
 		edges = sobel_edge_detection(img, options.threshold, options.sensitivity);
 		break;
 	case FILTER_CANNY:
-		printf("Using Canny edge detection.\n");
 		edges = canny_edge_detection(img, options.threshold, options.sensitivity);
 		break;
 	case FILTER_LAPLACIAN:
-		printf("Using Laplacian edge detection.\n");
 		edges = laplacian_edge_detection(img, options.threshold, options.sensitivity);
 		break;
 	default:

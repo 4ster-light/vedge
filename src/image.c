@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "image.h"
 
@@ -10,7 +11,7 @@ Image load_ppm(const char *filename)
 	if (!fp)
 	{
 		perror("Error opening file");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 
 	char magic[3];
@@ -19,14 +20,14 @@ Image load_ppm(const char *filename)
 	if (magic[1] != '6')
 	{
 		fprintf(stderr, "Only P6 PPM format supported.\n");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 
 	Image img = {width, height, malloc(width * height * sizeof(unsigned char))};
 	if (!img.data)
 	{
 		perror("Image allocation failed");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 
 	fgetc(fp); // Skip newline
@@ -41,7 +42,7 @@ void save_ppm(const char *filename, Image img)
 	if (!fp)
 	{
 		perror("Error opening file");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 
 	fprintf(fp, "P6\n%d %d\n255\n", img.width, img.height);

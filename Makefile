@@ -5,22 +5,25 @@ LDFLAGS  :=
 SRC_DIR  := src
 DIST_DIR := dist
 
-SRCS     := $(SRC_DIR)/main.c $(SRC_DIR)/image.c $(SRC_DIR)/filters.c $(SRC_DIR)/cli.c
+SRCS     := $(wildcard $(SRC_DIR)/*.c)
 OBJS     := $(patsubst $(SRC_DIR)/%.c, $(DIST_DIR)/%.o, $(SRCS))
 TARGET   := $(DIST_DIR)/vedge
 
-# Build target (display result)
 all: $(TARGET)
-	@echo "✓ Build complete: $(TARGET)"
+
+$(TARGET): $(OBJS)
+	@mkdir -p $(DIST_DIR)
+	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
+
+$(DIST_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	@rm -rf $(DIST_DIR)
-	@echo "✓ Cleaned build artifacts and output"
+	rm -rf $(DIST_DIR)
 
 run: all
-	@echo "✓ Running edge detector..."
-	@echo ""
-	@./$(TARGET)
+	@$(TARGET)
 
 help:
 	@echo "Available targets:"
@@ -30,15 +33,3 @@ help:
 	@echo "  make help    - Show this help message"
 
 .PHONY: all clean run help
-
-# Create output directory
-$(DIST_DIR):
-	@mkdir -p $@
-
-# Compile source files into object files
-$(DIST_DIR)/%.o: $(SRC_DIR)/%.c | $(DIST_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
-
-# Link object files into executable
-$(TARGET): $(OBJS) | $(DIST_DIR)
-	$(CC) $(CFLAGS) $(OBJS) -o $@ $(LDFLAGS)

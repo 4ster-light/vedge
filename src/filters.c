@@ -1,5 +1,6 @@
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 
 #include "filters.h"
@@ -28,11 +29,13 @@
  */
 Image sobel_edge_detection(Image img, float threshold, float sensitivity)
 {
+	printf("Using Sobel edge detection.\n");
+
 	Image result = {img.width, img.height, malloc(img.width * img.height)};
 	if (!result.data)
 	{
 		perror("Memory allocation failed");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 
 	// TODO: Implementation here
@@ -44,11 +47,13 @@ Image sobel_edge_detection(Image img, float threshold, float sensitivity)
 
 Image canny_edge_detection(Image img, float threshold, float sensitivity)
 {
+	printf("Using Canny edge detection.\n");
+
 	Image result = {img.width, img.height, malloc(img.width * img.height)};
 	if (!result.data)
 	{
 		perror("Memory allocation failed");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 
 	// TODO: Implementation here
@@ -60,11 +65,13 @@ Image canny_edge_detection(Image img, float threshold, float sensitivity)
 
 Image laplacian_edge_detection(Image img, float threshold, float sensitivity)
 {
+	printf("Using Laplacian edge detection.\n");
+
 	Image result = {img.width, img.height, malloc(img.width * img.height)};
 	if (!result.data)
 	{
 		perror("Memory allocation failed");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 
 	// TODO: Implementation here

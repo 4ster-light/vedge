@@ -1,10 +1,16 @@
 {
-	"makefile.configureOnOpen": true,
 	"[c]": {
 		"editor.wordBasedSuggestions": "off",
 		"editor.semanticHighlighting.enabled": true,
 		"editor.stickyScroll.defaultModel": "foldingProviderModel",
 		"editor.suggest.insertMode": "replace",
 		"editor.formatOnSave": true
-	}
+	},
+	"makefile.launchConfigurations": [
+		{
+			"cwd": "/home/aster/Projects/vedge",
+			"binaryPath": "/home/aster/Projects/vedge/dist/vedge",
+			"binaryArgs": []
+		}
+	]
 }

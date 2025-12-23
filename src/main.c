@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "image.h"
 #include "filters.h"
@@ -20,17 +21,10 @@ int main(int argc, char *argv[])
 	Image edges;
 	switch (options.filter_type)
 	{
-	case FILTER_SOBEL:
-		edges = sobel_edge_detection(img, options.threshold, options.sensitivity);
-		break;
-	case FILTER_CANNY:
-		edges = canny_edge_detection(img, options.threshold, options.sensitivity);
-		break;
-	case FILTER_LAPLACIAN:
-		edges = laplacian_edge_detection(img, options.threshold, options.sensitivity);
-		break;
-	default:
-		break;
+	case FILTER_SOBEL: edges = sobel_edge_detection(img, options.threshold, options.sensitivity); break;
+	case FILTER_CANNY: edges = canny_edge_detection(img, options.threshold, options.sensitivity); break;
+	case FILTER_LAPLACIAN: edges = laplacian_edge_detection(img, options.threshold, options.sensitivity); break;
+	default: break;
 	}
 
 	printf("Saving result: %s\n", options.output_file);
@@ -49,5 +43,5 @@ int main(int argc, char *argv[])
 
 	// PHASE 4: Object Tracking
 
-	return 0;
+	return EXIT_SUCCESS;
 }
